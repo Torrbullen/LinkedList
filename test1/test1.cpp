@@ -9,10 +9,11 @@ Node* n1 = new Node(1);
 DoublyLinkedList list;
 
 int main() {
-	cout << list.add(n0, 0);
-	cout << list.add(n1, 1);
 
-	//list.display_forward();
+	list.add(n0, 0);
+	list.add(n1, 1);
+
+	list.display_backward();
 
 	return 0;
 }

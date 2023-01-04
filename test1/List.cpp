@@ -17,16 +17,18 @@ void Node::setData(int newData) {
 }
 
 Node* Node::getNext() {
+	if (next == nullptr) {
+		return nullptr;
+	}
 	return next;
 }
 
 void Node::setNext(Node* nextNode) {
-	
-	if (nextNode == nullptr) {
-		next = nullptr;
-	}
-	else{
+	if (nextNode) {
 		next = nextNode;
+	}
+	else {
+		cout << "nullptr";
 	}
 }
 
@@ -38,7 +40,11 @@ void Node::setPrev(Node* prevNode) {
 	prev = prevNode;
 }
 
-
+//Node* DoublyLinkedList::nodeAt(int pos) {
+//	for (int i = 0; i < pos; i++) {
+//
+//	}
+//}
 
 bool DoublyLinkedList::add(Node* node, int pos) {
 	if (pos != size || node == nullptr) {
@@ -46,21 +52,15 @@ bool DoublyLinkedList::add(Node* node, int pos) {
 	}
 	else {
 		if (head == nullptr) {
-			head->setNext(node);
-			tail->setPrev(node);
-			head->setPrev(nullptr);
-			tail->setNext(nullptr);
-			node->setPrev(head);
-			node->setNext(tail);
+			head = node;
+			tail = node;
 			size++;
 			return true;
 		}
 		else {
-			//nodedata->setNext(tail);
-			node->setNext(tail);
-			node->setPrev(tail->getPrev());
-			(tail->getPrev())->setNext(node);
-			tail->setPrev(node);
+			node->setNext(nullptr);
+			node->setPrev(tail);
+			tail = node;
 
 			size++;
 			return  true;
@@ -68,21 +68,17 @@ bool DoublyLinkedList::add(Node* node, int pos) {
 	}
 }
 
-void DoublyLinkedList::display_forward() {
+void DoublyLinkedList::display_backward() {
 	if (head == nullptr) {
 		cout << "emptyList";
 	}
-	Node* current = head->getNext();
+	Node* current = this->tail;
 	while (current != nullptr) {
-		cout << current << "    ";
-		current = current->getNext();
+		cout << current->getData() << "    ";
+		current = current->getPrev();
 	}
 }
-//Node* Node::nodeAt(int pos) {
-//	for (int i = 1; i <= pos; i++) {
-//		
-//	}
-//}
+
 
 int DoublyLinkedList::sizeOf() {
 	return size;
