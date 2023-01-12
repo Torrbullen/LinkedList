@@ -32,17 +32,33 @@ void Node::setPrev(Node* prevNode) {
 	prev = prevNode;
 }
 
-int DoublyLinkedList::sizeOf() {
+int DoublyLinkedList::Size() {
 	return size;
 }
 
-Node* DoublyLinkedList::nodeAt(int pos) {
+int DoublyLinkedList::Search(Node* nodedata) {
+	if (nodedata == nullptr) {
+		return 0;
+	}
+	if (nodedata->getNext() == nullptr && nodedata->getPrev() == nullptr && nodedata != this->NodeAt(0)) {
+		return 0;
+	}
+	int pos = 0;
+	Node* current = this->head;
+	while (nodedata != current) {
+		pos++;
+		current = current->getNext();
+	}
+	return this->NodeAt(pos)->getData();
+}
+
+Node* DoublyLinkedList::NodeAt(int pos) {
 	if (pos == 0) {
 		return head;
 	}
 	else {
 		Node* current = this->head;
-		for (int i = 0; i <= pos; i++) {
+		for (int i = 0; i < pos; i++) {
 			current = current->getNext();
 		}
 		if (current != nullptr) {
@@ -55,28 +71,23 @@ Node* DoublyLinkedList::nodeAt(int pos) {
 	}
 }
 
-bool DoublyLinkedList::remove(int pos) {
+bool DoublyLinkedList::Remove(int pos) {
 	if (pos <= size && pos > 0) {
-		
-		/*current->getNext()->setPrev(current->getPrev());
+		Node* current = this->NodeAt(pos);
+		current->getNext()->setPrev(current->getPrev());
 		current->getPrev()->setNext(current->getNext());
 		current->setNext(nullptr);
 		current->setPrev(nullptr);
-		delete current;*/
-		this->nodeAt(pos - 1)->setNext(this->nodeAt(pos + 1));
-		this->nodeAt(pos + 1)->setPrev(this->nodeAt(pos - 1));
-		this->nodeAt(pos)->setNext(nullptr);
-		this->nodeAt(pos)->setPrev(nullptr);
-		delete this->nodeAt(pos);
+		current = nullptr;
+		delete current;
 
 		return true;
-	
 	}
 	else {
 		return false;
 	}
 }
-bool DoublyLinkedList::add(Node* node, int pos) {
+bool DoublyLinkedList::Add(Node* node, int pos) {
 	if (pos > size || pos < 0 || node == nullptr) {
 		return false;
 	}
@@ -91,8 +102,7 @@ bool DoublyLinkedList::add(Node* node, int pos) {
 			return true;
 		}
 		else if (pos == size){
-			Node* temp;
-			temp = tail;
+			Node* temp = tail;
 			node->setNext(nullptr);
 			node->setPrev(temp);
 			temp->setNext(node);
@@ -102,14 +112,12 @@ bool DoublyLinkedList::add(Node* node, int pos) {
 			return  true;
 		}
 		else{
-			Node* temp = this->nodeAt(pos);
-			cout << temp->getData() << endl;
-			/*
-			node->setNext(temp->getNext());
-			temp->setNext(node);
-			temp->getNext()->setPrev(node);
-			node->setPrev(temp);
-			*/
+			Node* temp = this->NodeAt(pos);
+			
+			temp->getPrev()->setNext(node);
+			node->setPrev(temp->getPrev());
+			node->setNext(temp);
+			temp->setPrev(node);
 
 			size++;
 			return true;
@@ -117,7 +125,7 @@ bool DoublyLinkedList::add(Node* node, int pos) {
 	}
 }
 
-void DoublyLinkedList::display_backward() {
+void DoublyLinkedList::Display_backward() {
 	if (head == nullptr) {
 		cout << "emptyList";
 	}
@@ -129,7 +137,7 @@ void DoublyLinkedList::display_backward() {
 		cout << endl;
 }
 
-void DoublyLinkedList::display_forward() {
+void DoublyLinkedList::Display_forward() {
 	if (head == nullptr) {
 		cout << "emptyList";
 	}
@@ -141,7 +149,36 @@ void DoublyLinkedList::display_forward() {
 		cout << endl;
 }
 
+bool DoublyLinkedList::Replace(Node* oldnode, Node* newnode) {
+	if (oldnode->getNext() == nullptr && oldnode->getPrev() == nullptr) {
+		return false;
+	}
+	if (newnode == nullptr) {
+		return false;
+	}
+	if (oldnode->getNext() == nullptr) {
+		tail = newnode;
+		newnode->setNext(nullptr);
+		oldnode->getPrev()->setNext(newnode);
+		newnode->setPrev(oldnode->getPrev());
 
-//int DoublyLinkedList::sizeOf() {
-//	return size;
-//}
+	} 
+	else if (oldnode->getPrev() == nullptr) {
+		head = newnode;
+		newnode->setPrev(nullptr);
+		oldnode->getNext()->setPrev(newnode);
+		newnode->setNext(oldnode->getNext());
+	}
+	else {
+		oldnode->getPrev()->setNext(newnode);
+		oldnode->getNext()->setPrev(newnode);
+		newnode->setPrev(oldnode->getPrev());
+		newnode->setNext(oldnode->getNext());
+	}
+
+	oldnode->setNext(nullptr);
+	oldnode->setPrev(nullptr);
+	oldnode = nullptr;
+	delete oldnode;
+	return true;
+}

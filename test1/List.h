@@ -21,13 +21,13 @@ private:
 	Node* tail = nullptr;
 	int size = 0;
 public:
-	bool add(Node* nodedata, int pos);
-	bool remove(int pos);
-	bool replace(Node* oldnode, Node* newnode);
-	int search(Node* nodedata);
-	Node* nodeAt(int pos);
-	void display_forward();
-	void display_backward();
-	int sizeOf();
+	bool Add(Node* nodedata, int pos);
+	bool Remove(int pos);
+	bool Replace(Node* oldnode, Node* newnode);
+	int Search(Node* nodedata);
+	Node* NodeAt(int pos);
+	void Display_forward();
+	void Display_backward();
+	int Size();
 };
 

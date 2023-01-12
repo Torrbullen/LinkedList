@@ -8,27 +8,34 @@ Node* n1 = new Node(1);
 Node* n2 = new Node(2);
 Node* n3 = new Node(3);
 Node* n4 = new Node(4);
+Node* n5 = new Node(5);
+
 
 DoublyLinkedList list;
 
 int main() {
 
-	cout << list.add(n0, 0);
-	cout << list.add(n1, 1) << endl;
-	//list.remove(3);
+	cout << list.Add(n0, 0) << endl;
+	//cout << list.Search(n0) << endl;
+	//cout << list.Add(n1, 10) << endl; //should be a false or -1 (error/invalid) 
+	//cout << list.Add(nullptr, 1) << endl; //should be a false or -1 (error/invalid) 
+	list.Add(n1, 1);
+	//cout << list.Remove(3) << endl; //should be a false or -1 (error/invalid) 
+	list.Add(n2, 2);
+	list.Display_forward();
+	list.Add(n3, 1);
+	list.Display_forward();
+	list.Remove(2);
+	list.Display_forward();
+	list.Display_backward();
+	//cout << list.Search(n4) << endl; //should be a false or -1 (error/invalid) 
+	cout << list.Search(n3) << endl;
+	//cout << list.Replace(n3, nullptr) << endl; //should be a false or -1 (error/invalid) 
+	//cout << list.Replace(n5, n4) << endl; //should be a false or -1 (error/invalid) 
+	list.Replace(n3, n4);
+	list.Display_forward();
+	cout << list.Size() << endl;
 
-	list.display_forward();
-	
-	cout << list.add(n2, 2) << endl;
-	list.display_forward();
-	
-	cout << list.add(n3, 3) << endl;
-	list.display_forward();
-	list.display_backward();
-	cout << list.add(n4, 1) << endl;
-	list.display_forward();
-	list.display_backward();
-	//list.remove(2);
 
 
 
