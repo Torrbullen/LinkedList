@@ -49,7 +49,7 @@
 //		pos++;
 //		current = current->getNext();
 //	}
-//	return this->NodeAt(pos)->getData();
+//	return pos;
 //}
 //
 //Node* DoublyLinkedList::NodeAt(int pos) {
@@ -72,7 +72,7 @@
 //}
 //
 //bool DoublyLinkedList::Remove(int pos) {
-//	if (pos <= size && pos > 0) {
+//	if (pos < size && pos > 0) {
 //		Node* current = this->NodeAt(pos);
 //		current->getNext()->setPrev(current->getPrev());
 //		current->getPrev()->setNext(current->getNext());
@@ -80,7 +80,29 @@
 //		current->setPrev(nullptr);
 //		current = nullptr;
 //		delete current;
-//
+//		size--;
+//		return true;
+//	}
+//	else if (pos == size) {
+//		Node* current = this->tail->getPrev();
+//		tail = current->getPrev();
+//		current->getPrev()->setNext(nullptr);
+//		current->setNext(nullptr);
+//		current->setPrev(nullptr);
+//		current = nullptr;
+//		delete current;
+//		size--;
+//		return true;
+//	}
+//	else if (pos == 0) {
+//		Node* current = this->head->getNext();
+//		head = current->getNext();
+//		current->getNext()->setPrev(nullptr);
+//		current->setNext(nullptr);
+//		current->setPrev(nullptr);
+//		current = nullptr;
+//		delete current;
+//		size--;
 //		return true;
 //	}
 //	else {

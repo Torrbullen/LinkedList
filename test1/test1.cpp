@@ -28,17 +28,13 @@
 //	list.Remove(2);
 //	list.Display_forward();
 //	list.Display_backward();
-//	//cout << list.Search(n4) << endl; //should be a false or -1 (error/invalid) 
-//	cout << list.Search(n3) << endl;
+//	cout << list.Search(n4) << endl; //should be a false or -1 (error/invalid) 
+//	//cout << list.Search(n3) << endl;
 //	//cout << list.Replace(n3, nullptr) << endl; //should be a false or -1 (error/invalid) 
 //	//cout << list.Replace(n5, n4) << endl; //should be a false or -1 (error/invalid) 
 //	list.Replace(n3, n4);
 //	list.Display_forward();
 //	cout << list.Size() << endl;
-//
-//
-//
-//
 //
 //	return 0;
 //}
